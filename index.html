@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>The Godfather Portfolio</title>
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="War Room">
+<link rel="apple-touch-icon" href="https://via.placeholder.com/180/c9a84c/000000?text=GF">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-dark: #8a6a1f;
+    --black: #080808;
+    --dark: #0f0f0f;
+    --card: #131313;
+    --card2: #1a1a1a;
+    --border: #2a2a2a;
+    --red: #c0392b;
+    --green: #27ae60;
+    --text: #d4c5a9;
+    --muted: #666;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Share Tech Mono', monospace;
+    min-height: 100vh;
+    padding-top: env(safe-area-inset-top); /* iOS Notch Support */
+    background-image: 
+      radial-gradient(ellipse at 20% 0%, rgba(201,168,76,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(201,168,76,0.03) 0%, transparent 60%);
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+
+  /* HEADER */
+  header { border-bottom: 1px solid var(--border); padding: 24px 0; margin-bottom: 32px; }
+  .header-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 700; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; }
+  .logo span { color: var(--text); font-weight: 300; font-size: 14px; display: block; letter-spacing: 4px; }
+  .target-badge { font-family: 'Cormorant Garamond', serif; font-size: 13px; color: var(--muted); text-align: right; line-height: 1.6; }
+  .target-badge strong { color: var(--gold); font-size: 22px; display: block; }
+
+  /* RESPONSIVE STATS GRID */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  /* MOBILE OPTIMIZED TABLE */
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 32px;
+    border: 1px solid var(--border);
+    background: var(--card);
+  }
+  .portfolio-table { width: 100%; border-collapse: collapse; min-width: 800px; }
+  .portfolio-table th { font-size: 9px; text-transform: uppercase; color: var(--muted); text-align: left; padding: 12px; border-bottom: 1px solid var(--border); }
+  .portfolio-table td { padding: 14px 12px; border-bottom: 1px solid #1a1a1a; font-size: 13px; }
+
+  /* NARRATIVE CARDS - STACKING GRID */
+  .narratives {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+    margin-bottom: 32px;
+  }
+
+  /* EXISTING STYLES RE-INTEGRATED */
+  .stat-card { background: var(--card); border: 1px solid var(--border); padding: 16px; position: relative; }
+  .stat-value { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: var(--gold); }
+  .green { color: var(--green) !important; }
+  .red { color: var(--red) !important; }
+  .progress-section { background: var(--card); border: 1px solid var(--border); padding: 20px; margin-bottom: 32px; }
+  .progress-bar { width: 100%; height: 8px; background: var(--border); overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold-dark), var(--gold)); transition: width 0.5s ease; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 13px; text-transform: uppercase; letter-spacing: 4px; color: var(--gold); margin-bottom: 12px; display: flex; align-items: center; gap: 12px; }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .btn { background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Share Tech Mono', monospace; padding: 10px 16px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; }
+  input[type="number"] { background: var(--dark); border: 1px solid var(--border); color: var(--text); padding: 8px; width: 90px; }
+  .narrative-card { background: var(--card); border: 1px solid var(--border); padding: 16px; border-left: 3px solid var(--gold); }
+  .hot { border-left-color: var(--red); }
+
+  /* MOBILE SPECIFIC OVERRIDES */
+  @media (max-width: 600px) {
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .target-badge { text-align: left; }
+    .logo { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="header-inner">
+      <div class="logo">The Godfather Portfolio <span>Crypto War Room — Est. 2026</span></div>
+      <div class="target-badge">Mission Objective <strong id="target-display">$100,000</strong> Starting Capital: $5,000</div>
+    </div>
+  </header>
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-label">Total Invested</div><div class="stat-value" id="total-invested">$0</div></div>
+    <div class="stat-card"><div class="stat-label">Current Value</div><div class="stat-value green" id="current-value">$0</div></div>
+    <div class="stat-card"><div class="stat-label">Total P&L</div><div class="stat-value" id="total-pnl">$0</div></div>
+    <div class="stat-card"><div class="stat-label">To Target</div><div class="stat-value" id="to-target">$100K</div></div>
+  </div>
+
+  <div class="progress-section">
+    <div class="progress-label">Journey to $100K <span id="progress-pct">0%</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+
+  <div class="section-title">Portfolio Positions</div>
+  <div style="margin-bottom: 15px; display: flex; gap: 10px;">
+    <button class="btn" onclick="toggleAddForm()">+ Add</button>
+    <button class="btn" onclick="render()">↻ Sync</button>
+  </div>
+
+  <div class="table-container">
+    <table class="portfolio-table">
+      <thead>
+        <tr>
+          <th>Asset</th><th>Tier</th><th>Invested</th><th>Entry</th><th>Current</th><th>Target</th><th>Value</th><th>P&L</th><th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="portfolio-body"></tbody>
+    </table>
+  </div>
+
+  <div class="section-title">Narratives</div>
+  <div class="narratives">
+    <div class="narrative-card hot"><h3>AI × Crypto</h3><p>Watch: NEAR, FET, RENDER</p></div>
+    <div class="narrative-card hot"><h3>DePIN</h3><p>Watch: HNT, IOTX, HONEY</p></div>
+    <div class="narrative-card"><h3>RWA</h3><p>Watch: ONDO, CFG</p></div>
+  </div>
+</div>
+
+<script>
+  let positions = JSON.parse(localStorage.getItem('gf-portfolio') || '[]');
+
+  if (positions.length === 0) {
+    positions = [
+      { id: 1, name: 'Bitcoin', ticker: 'BTC', tier: 1, invested: 1200, entry: 95000, current: 95000, target: 200000 },
+      { id: 2, name: 'Solana', ticker: 'SOL', tier: 2, invested: 875, entry: 190, current: 190, target: 800 }
+    ];
+    save();
+  }
+
+  function save() { localStorage.setItem('gf-portfolio', JSON.stringify(positions)); }
+
+  function render() {
+    const tbody = document.getElementById('portfolio-body');
+    tbody.innerHTML = '';
+    let totalInvested = 0, totalCurrent = 0;
+
+    positions.forEach((p) => {
+      const coins = p.invested / p.entry;
+      const currentVal = coins * p.current;
+      totalInvested += p.invested;
+      totalCurrent += currentVal;
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${p.name}<br><small>${p.ticker}</small></td>
+        <td>T${p.tier}</td>
+        <td>$${p.invested}</td>
+        <td><input type="number" value="${p.entry}" onchange="update(${p.id}, 'entry', this.value)"></td>
+        <td><input type="number" value="${p.current}" onchange="update(${p.id}, 'current', this.value)"></td>
+        <td><input type="number" value="${p.target}" onchange="update(${p.id}, 'target', this.value)"></td>
+        <td>$${currentVal.toFixed(0)}</td>
+        <td class="${p.current >= p.entry ? 'green' : 'red'}">${(((p.current-p.entry)/p.entry)*100).toFixed(1)}%</td>
+        <td><button onclick="remove(${p.id})" style="background:none; border:none; color:red; cursor:pointer;">✕</button></td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    document.getElementById('total-invested').textContent = '$' + totalInvested.toLocaleString();
+    document.getElementById('current-value').textContent = '$' + totalCurrent.toLocaleString();
+    const progress = Math.min(100, (totalCurrent / 100000) * 100);
+    document.getElementById('progress-fill').style.width = progress + '%';
+    document.getElementById('progress-pct').textContent = progress.toFixed(1) + '%';
+  }
+
+  function update(id, field, val) {
+    const p = positions.find(x => x.id === id);
+    if(p) { p[field] = parseFloat(val); save(); render(); }
+  }
+
+  function remove(id) {
+    positions = positions.filter(x => x.id !== id); save(); render();
+  }
+
+  render();
+</script>
+</body>
+</html>
